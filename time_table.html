@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SOC Analyst Routine: Oct 5 to Nov 15</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#eef2f4;--card:#fff;--ink:#14252e;--mute:#5a6b75;--line:#d3dde2;--acc:#0e7c86;--warn:#c2410c;--soft:#dff1f2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a20;--card:#17262e;--ink:#e6eef1;--mute:#93a6b0;--line:#2a3d47;--acc:#4fc3cc;--warn:#fb923c;--soft:#173a40}}
+:root[data-theme="dark"]{--bg:#0f1a20;--card:#17262e;--ink:#e6eef1;--mute:#93a6b0;--line:#2a3d47;--acc:#4fc3cc;--warn:#fb923c;--soft:#173a40}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:26px;margin:0 0 4px}
+h2{font-size:19px;margin:32px 0 10px}
+p{margin:0 0 10px;color:var(--mute)}
+.clock{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.clock div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.clock b{display:block;font:500 30px "IBM Plex Mono",monospace;color:var(--acc)}
+.clock span{font-size:14px;color:var(--mute)}
+.tabs{display:flex;gap:8px;margin-bottom:10px}
+.tabs button{flex:1;padding:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;font:inherit;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--acc);color:#fff;border-color:var(--acc)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.list{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.row{display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid var(--line);align-items:flex-start}
+.row:last-child{border-bottom:0}
+.row.fixed{background:var(--soft)}
+.row .t{font:500 13px "IBM Plex Mono",monospace;min-width:104px;color:var(--mute);padding-top:3px}
+.row .x{flex:1}
+.row .x small{display:block;color:var(--mute);font-size:14px}
+.row input{width:20px;height:20px;margin-top:3px;accent-color:var(--acc)}
+.row.done .x{text-decoration:line-through;opacity:.55}
+.reset{margin:0 0 12px;padding:9px 14px;border:1px solid var(--warn);background:transparent;color:var(--warn);border-radius:8px;font:inherit;cursor:pointer}
+.reset:hover{background:var(--warn);color:#fff}
+.prog{height:8px;background:var(--line);border-radius:4px;margin:8px 0 12px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--acc);transition:width .25s}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:15px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--soft)}
+tr:last-child td{border-bottom:0}
+.wrap{overflow-x:auto}
+.calc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.calc label{display:block;margin-bottom:6px}
+.calc input{width:120px;padding:8px;font:inherit;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+#verdict{margin-top:12px;font-weight:600}
+.ok{color:var(--acc)}.bad{color:var(--warn)}
+</style>
+</head>
+<body>
+<main>
+<h1>Your routine: Oct 5 to Nov 15</h1>
+<p>Built for an 8:00 to 16:00 SOC shift, a 4:00 wake-up and a full 6 hours of sleep.</p>
+
+<div class="clock">
+<div><b id="d1">–</b><span>days to finish the HTB SOC path (Oct 31)</span></div>
+<div><b id="d2">–</b><span>days to FYP + research paper (Nov 15)</span></div>
+</div>
+
+<h2>Today's checklist</h2>
+<div class="tabs">
+<button id="tw" aria-pressed="true">Work day</button>
+<button id="to" aria-pressed="false">Off day</button>
+</div>
+<div class="prog"><i id="bar"></i></div>
+<button id="reset" class="reset" type="button">Reset today's schedule</button>
+<div class="list" id="list"></div>
+<p style="margin-top:8px;font-size:14px">Ticks reset each day. Shaded rows are fixed.</p>
+
+<h2>Where the hours go</h2>
+<div class="wrap"><table>
+<tr><th>Block</th><th>Oct 5 to Oct 31</th><th>Nov 1 to Nov 15</th></tr>
+<tr><td>A: 4:10 am, 90 min</td><td>HTB SOC path</td><td>FYP research</td></tr>
+<tr><td>B: 6:45 pm, 45 min</td><td>One daily challenge (Sherlock or TryHackMe room)</td><td>Same</td></tr>
+<tr><td>C: 7:30 pm, 45 min</td><td>HTB path labs</td><td>Research paper</td></tr>
+<tr><td>D: 9:00 pm, 40 min</td><td>FYP, Tue / Thu / Sat only</td><td>Paper or FYP, Tue / Thu / Sat</td></tr>
+<tr><td>Off day</td><td>One full HTB machine, FYP 2 h, driving 1.5 h, friends 1 h, deep clean 45 min, write-up 30 min</td><td>Same, with FYP or paper instead of the machine when behind</td></tr>
+<tr><td>Gym</td><td colspan="2">Mon, Wed, Fri after work, about 50 min. Driving practice on the off day.</td></tr>
+</table></div>
+
+<h2>Does the path fit by Oct 31?</h2>
+<div class="calc">
+<label for="hrs">Hours left in the path (add up the estimate on each unfinished module)</label>
+<input id="hrs" type="number" min="0" step="1" value="60" inputmode="numeric">
+<div id="verdict"></div>
+<p style="margin:8px 0 0;font-size:14px">Capacity assumes about 2.25 h on work days (Blocks A and C) and 3 h on off days.</p>
+</div>
+
+<h2>Small rules that protect the plan</h2>
+<div class="list">
+<div class="row"><div class="x">Lights out at 22:00. Wake at 4:00 is only safe with a full 6 hours.<small>Dinner by 20:45, social media capped at 20 minutes after Block D.</small></div></div>
+<div class="row"><div class="x">Shower 25 to 30 minutes, daily room reset 15 minutes.<small>Saves about 75 minutes a day. Do the full 45-minute clean once a week.</small></div></div>
+<div class="row"><div class="x">Songs on the commute, notes on the way home.<small>Flashcards of yesterday's module, or skim a paper for your research.</small></div></div>
+<div class="row"><div class="x">One public thing per week.<small>A write-up of your machine or a short LinkedIn post builds your name faster than raw volume.</small></div></div>
+</div>
+</main>
+<script>
+var W=[["04:00","Wake, water, no phone",1],["04:10 to 05:40","Block A: HTB path or FYP (deep work)"],["05:40 to 06:15","Wash and get dressed",1],["06:15 to 06:45","Breakfast, pack bag",1],["06:45 to 08:00","Commute: songs or flashcards"],["08:00 to 16:00","SOC shift",1],["16:00 to 17:15","Commute home: notes or a paper"],["17:15 to 17:35","Coffee and quick wash",1],["17:35 to 18:30","Gym (Mon / Wed / Fri). Other days: rest and 15 min room reset"],["18:45 to 19:30","Block B: daily challenge (Sherlock or THM room)"],["19:30 to 20:15","Block C: path labs or paper"],["20:30 to 21:00","Dinner",1],["21:00 to 21:40","Block D: FYP (Tue / Thu / Sat), otherwise free"],["21:40 to 22:00","Social media (max 20 min), prep tomorrow",1],["22:00","Sleep",1]];
+var O=[["05:30","Wake (later is fine, keep it within 90 min of 4:00)",1],["06:30 to 07:00","Light stretch or walk",0],["08:00 to 10:30","Full HTB machine or a path assessment"],["11:00 to 13:00","FYP or research paper"],["14:00 to 15:30","Car driving practice"],["16:00 to 17:00","Time with a friend or family"],["17:00 to 17:45","Deep clean the room"],["18:00 to 18:30","Write-up of the week's machine"],["22:00","Sleep",1]];
+var mode="w",key=function(){return "r-"+new Date().toDateString()+mode};
+var st={};function load(){try{st=JSON.parse(localStorage.getItem(key())||"{}")}catch(e){st={}}}
+function save(){try{localStorage.setItem(key(),JSON.stringify(st))}catch(e){}}
+function render(){load();var L=mode=="w"?W:O,h="",n=0,d=0;
+L.forEach(function(r,i){var tick=r[2]!==1;if(tick){n++;if(st[i])d++}
+h+='<div class="row'+(r[2]===1?' fixed':'')+(st[i]?' done':'')+'"><span class="t">'+r[0]+'</span><span class="x">'+r[1]+'</span>'+(tick?'<input type="checkbox" data-i="'+i+'" aria-label="Done"'+(st[i]?' checked':'')+'>':'')+'</div>'});
+document.getElementById("list").innerHTML=h;
+document.getElementById("bar").style.width=(n?100*d/n:0)+"%";
+document.getElementById("tw").setAttribute("aria-pressed",mode=="w");
+document.getElementById("to").setAttribute("aria-pressed",mode=="o")}
+document.getElementById("list").addEventListener("change",function(e){var i=e.target.dataset.i;if(i!==undefined){st[i]=e.target.checked;save();render()}});
+document.getElementById("reset").onclick=function(){var m=mode;["w","o"].forEach(function(k){mode=k;st={};try{localStorage.removeItem(key())}catch(e){}});mode=m;st={};render()};
+document.getElementById("tw").onclick=function(){mode="w";render()};
+document.getElementById("to").onclick=function(){mode="o";render()};
+function days(m,d){var t=new Date(),a=new Date(t.getFullYear(),t.getMonth(),t.getDate()),b=new Date(2026,m,d);return Math.max(0,Math.round((b-a)/864e5))}
+document.getElementById("d1").textContent=days(9,31);
+document.getElementById("d2").textContent=days(10,15);
+function calc(){var h=+document.getElementById("hrs").value||0,D=days(9,31),off=Math.floor(D/7),wk=D-off,cap=wk*2.25+off*3,v=document.getElementById("verdict");
+if(h<=cap){v.className="ok";v.textContent="Fits: "+h+" h needed, about "+Math.round(cap)+" h available. Average "+(D?(h/D).toFixed(1):0)+" h per day."}
+else{v.className="bad";v.textContent="Too tight: "+h+" h needed, about "+Math.round(cap)+" h available. Aim for the modules that matter most for SOC work first (Splunk, Windows event logs, network traffic) and move the rest into Nov."}}
+document.getElementById("hrs").oninput=calc;calc();render();
+</script>
+</body>
+</html>
